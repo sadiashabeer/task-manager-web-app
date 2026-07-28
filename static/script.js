@@ -2,7 +2,6 @@ const API_URL = "/tasks";
 
 window.onload = loadTasks;
 
-// Load all tasks
 async function loadTasks() {
     const response = await fetch(API_URL);
     const tasks = await response.json();
@@ -40,7 +39,6 @@ async function loadTasks() {
     });
 }
 
-// Add task
 async function addTask() {
     const input = document.getElementById("taskInput");
     const title = input.value.trim();
@@ -62,7 +60,6 @@ async function addTask() {
     loadTasks();
 }
 
-// Edit task
 async function editTask(id, oldTitle, completed) {
     const newTitle = prompt("Edit task:", oldTitle);
 
@@ -82,7 +79,6 @@ async function editTask(id, oldTitle, completed) {
     loadTasks();
 }
 
-// Done / Undo
 async function toggleTask(id, title, completed) {
     await fetch(`${API_URL}/${id}`, {
         method: "PUT",
@@ -98,7 +94,6 @@ async function toggleTask(id, title, completed) {
     loadTasks();
 }
 
-// Delete
 async function deleteTask(id) {
     await fetch(`${API_URL}/${id}`, {
         method: "DELETE"
