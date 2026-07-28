@@ -6,7 +6,7 @@ Live Demo
 
 GitHub Repository
 
-https://github.com/YourUsername/task-manager-web-app
+https://github.com/sadiashabeer/task-manager-web-app.git
 
 Overview
 
