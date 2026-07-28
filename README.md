@@ -2,7 +2,7 @@ Task Manager Web App
 
 Live Demo
 
-[https://your-app-name.onrender.com](https://task-manager-web-app-production-591e.up.railway.app/)
+https://task-manager-web-app-production-591e.up.railway.app/
 
 GitHub Repository
 
