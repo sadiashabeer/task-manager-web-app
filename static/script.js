@@ -68,7 +68,7 @@ async function editTask(id, oldTitle, completed) {
 
     if (newTitle === null) return;
 
-    await fetch(${API_URL}/${id}, {
+    await fetch(`${API_URL}/${id}`, {
         method: "PUT",
         headers: {
             "Content-Type": "application/json"
@@ -84,7 +84,7 @@ async function editTask(id, oldTitle, completed) {
 
 // Done / Undo
 async function toggleTask(id, title, completed) {
-    await fetch(${API_URL}/${id}, {
+    await fetch(`${API_URL}/${id}`, {
         method: "PUT",
         headers: {
             "Content-Type": "application/json"
@@ -100,7 +100,7 @@ async function toggleTask(id, title, completed) {
 
 // Delete
 async function deleteTask(id) {
-    await fetch(${API_URL}/${id}, {
+    await fetch(`${API_URL}/${id}`, {
         method: "DELETE"
     });
 
