@@ -3,34 +3,43 @@ const API_URL = "/tasks";
 window.onload = loadTasks;
 
 // Load all tasks
-tasks.forEach(task => {
-    const li = document.createElement("li");
+async function loadTasks() {
+    const response = await fetch(API_URL);
+    const tasks = await response.json();
 
-    if (task.completed) {
-        li.classList.add("completed");
-    }
+    const taskList = document.getElementById("taskList");
+    taskList.innerHTML = "";
 
-    const safeTitle = JSON.stringify(task.title);
+    tasks.forEach(task => {
+        const li = document.createElement("li");
 
-    li.innerHTML = `
-        <span>${task.title}</span>
-        <div class="actions">
-            <button onclick='toggleTask(${task.id}, ${safeTitle}, ${task.completed})'>
-                ${task.completed ? "Undo" : "Done"}
-            </button>
+        if (task.completed) {
+            li.classList.add("completed");
+        }
 
-            <button onclick='editTask(${task.id}, ${safeTitle}, ${task.completed})'>
-                Edit
-            </button>
+        const safeTitle = JSON.stringify(task.title);
 
-            <button onclick="deleteTask(${task.id})">
-                Delete
-            </button>
-        </div>
-    `;
+        li.innerHTML = `
+            <span>${task.title}</span>
+            <div class="actions">
+                <button onclick='toggleTask(${task.id}, ${safeTitle}, ${task.completed})'>
+                    ${task.completed ? "Undo" : "Done"}
+                </button>
 
-    taskList.appendChild(li);
-});
+                <button onclick='editTask(${task.id}, ${safeTitle}, ${task.completed})'>
+                    Edit
+                </button>
+
+                <button onclick="deleteTask(${task.id})">
+                    Delete
+                </button>
+            </div>
+        `;
+
+        taskList.appendChild(li);
+    });
+}
+
 // Add task
 async function addTask() {
     const input = document.getElementById("taskInput");
@@ -59,12 +68,7 @@ async function editTask(id, oldTitle, completed) {
 
     if (newTitle === null) return;
 
-    if (newTitle.trim() === "") {
-        alert("Task title cannot be empty.");
-        return;
-    }
-
-    await fetch(`${API_URL}/${id}`, {
+    await fetch(${API_URL}/${id}, {
         method: "PUT",
         headers: {
             "Content-Type": "application/json"
@@ -78,9 +82,9 @@ async function editTask(id, oldTitle, completed) {
     loadTasks();
 }
 
-// Complete / Undo
+// Done / Undo
 async function toggleTask(id, title, completed) {
-    await fetch(`${API_URL}/${id}`, {
+    await fetch(${API_URL}/${id}, {
         method: "PUT",
         headers: {
             "Content-Type": "application/json"
@@ -94,11 +98,9 @@ async function toggleTask(id, title, completed) {
     loadTasks();
 }
 
-// Delete task
+// Delete
 async function deleteTask(id) {
-    if (!confirm("Delete this task?")) return;
-
-    await fetch(`${API_URL}/${id}`, {
+    await fetch(${API_URL}/${id}, {
         method: "DELETE"
     });
 
